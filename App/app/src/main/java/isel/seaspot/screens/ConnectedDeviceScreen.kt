@@ -167,8 +167,8 @@ fun CharacteristicDisplay(
                             Button({
                                 val charac = getCharacteristic(services, service, characteristic.getFullUUID())
                                 if(charac==null) toast(characteristicNotFound, ctx) //if this is true, something went wrong
-
                                     val worked = charac?.setValue(value)
+                                    gatt?.writeCharacteristic(charac)
                                     if(worked==true) toast(success, ctx) else toast(failed, ctx)
 
                             }, stringResource(R.string.refresh))
@@ -195,9 +195,9 @@ fun CharacteristicDisplay(
                             Button({
                                 val charac = getCharacteristic(services, service, characteristic.getFullUUID())
                                 if(charac==null) toast(characteristicNotFound, ctx) //if this is true, something went wrong
-
-                                    val worked = charac?.setValue(text)
-                                    //charac?.value = text.encodeToByteArray()
+                                    log("Charac write $text")
+                                    val worked = charac?.setValue(text.encodeToByteArray())
+                                    gatt?.writeCharacteristic(charac)
                                     if(worked==true) toast(success, ctx) else toast(failed, ctx)
 
                             }, stringResource(R.string.edit), isEditButtonEnabled)
