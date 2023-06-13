@@ -167,15 +167,10 @@ fun CharacteristicDisplay(
                             Button({
                                 val charac = getCharacteristic(services, service, characteristic.getFullUUID())
                                 if(charac==null) toast(characteristicNotFound, ctx) //if this is true, something went wrong
-                                else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { //https://developer.android.com/reference/android/bluetooth/BluetoothGatt#writeCharacteristic(android.bluetooth.BluetoothGattCharacteristic,%20byte[],%20int)
-                                    log("Running w/ ${Build.VERSION_CODES.TIRAMISU}")
-                                    val code = gatt?.writeCharacteristic(charac, value, BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT)
-                                    if(code == BluetoothStatusCodes.SUCCESS) toast(success, ctx) else toast(failed, ctx)
-                                } else { //https://developer.android.com/reference/android/bluetooth/BluetoothGattCharacteristic#setValue(byte[])
-                                    log("Running bellow ${Build.VERSION_CODES.TIRAMISU}")
+
                                     val worked = charac?.setValue(value)
                                     if(worked==true) toast(success, ctx) else toast(failed, ctx)
-                                }
+
                             }, stringResource(R.string.refresh))
                         } else {
                             log("Text raw = ${characteristic.value.toList()}. String = ${characteristic.value.decodeToString()}")
@@ -200,17 +195,11 @@ fun CharacteristicDisplay(
                             Button({
                                 val charac = getCharacteristic(services, service, characteristic.getFullUUID())
                                 if(charac==null) toast(characteristicNotFound, ctx) //if this is true, something went wrong
-                                else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { //https://developer.android.com/reference/android/bluetooth/BluetoothGatt#writeCharacteristic(android.bluetooth.BluetoothGattCharacteristic,%20byte[],%20int)
-                                    log("Running w/ ${Build.VERSION_CODES.TIRAMISU}")
-                                    log("text = $text")
-                                    val textEncoded = text.encodeToByteArray()
-                                    val code = gatt?.writeCharacteristic(charac, textEncoded, BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT)
-                                    if(code == BluetoothStatusCodes.SUCCESS) toast(success, ctx) else toast(failed, ctx)
-                                } else { //https://developer.android.com/reference/android/bluetooth/BluetoothGattCharacteristic#setValue(byte[])
-                                    log("Running bellow ${Build.VERSION_CODES.TIRAMISU}")
+
                                     val worked = charac?.setValue(text)
+                                    //charac?.value = text.encodeToByteArray()
                                     if(worked==true) toast(success, ctx) else toast(failed, ctx)
-                                }
+
                             }, stringResource(R.string.edit), isEditButtonEnabled)
                         }
                     }

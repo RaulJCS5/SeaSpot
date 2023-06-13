@@ -222,7 +222,7 @@ class BLE_Manager(
         }
 
         //This callback is run if Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-        override fun onCharacteristicRead(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic, value: ByteArray, status: Int) {
+        fun onCharacteristicRead(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic, value: ByteArray, status: Int) {
             runBlockingCallback {
                 log("onCharacteristicRead ${Thread.currentThread()}")
                 when (status) {
@@ -270,7 +270,7 @@ class BLE_Manager(
             log("onCharacteristicChanged()")
         }
 
-        override fun onCharacteristicChanged(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic, value: ByteArray) {
+        fun onCharacteristicChanged(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic, value: ByteArray) {
             log("onCharacteristicChanged222()")
         }
 
@@ -278,7 +278,7 @@ class BLE_Manager(
             log("onReliableWriteCompleted()")
         }
 
-        override fun onDescriptorRead(gatt: BluetoothGatt, descriptor: BluetoothGattDescriptor, status: Int, value: ByteArray) {
+        fun onDescriptorRead(gatt: BluetoothGatt, descriptor: BluetoothGattDescriptor, status: Int, value: ByteArray) {
             log("Value = ${value.decodeToString()}")
         }
     }

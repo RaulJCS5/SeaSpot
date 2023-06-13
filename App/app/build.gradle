@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'isel.seaspot'
-    compileSdk 33
+    compileSdk 32
 
     defaultConfig {
         applicationId "isel.seaspot"
         minSdk 24 //minSdkVersion <= targetSdkVersion <= compileSdkVersion
-        targetSdk 33 //targetSdkVersion matters and it should be less than or equal to compileSdkVersion. But it makes sense that targetSDK should be equal to compileSDK
+        targetSdk 32 //targetSdkVersion matters and it should be less than or equal to compileSdkVersion. But it makes sense that targetSDK should be equal to compileSDK
         versionCode 1
         versionName "1.0"
 
